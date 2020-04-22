@@ -1,0 +1,7 @@
+C:\Users\annat\OneDrive\Desktop\POLITECNICO\LAB\PSoC_03_Complete\PSoC_03\03-I2C_Master_Advanced_Complete.cydsn\03-I2C_Master_Advanced_Complete.cyprj|4b394838-110a-4512-8340-3f7bef849471
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|8b2a77f5-6709-47cf-acd2-09b211cd5275
+C:\Users\annat\OneDrive\Documenti\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|12122906-4a64-4414-9f41-f921d5e3b474
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|e93bc18d-6923-4354-9ba5-9b8182d748cd
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|79e01c13-86bc-4e62-a594-7f49855e71de
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|259df929-7780-45e3-94a4-fc81dd18fb19
+C:\Users\annat\OneDrive\Desktop\POLITECNICO\LAB\AnnotationLibrary\AnnotationLibrary_lib\AnnotationLibrary_lib.cylib\AnnotationLibrary_lib.cyprj|114b736e-af5d-4065-acc8-133414b29902
