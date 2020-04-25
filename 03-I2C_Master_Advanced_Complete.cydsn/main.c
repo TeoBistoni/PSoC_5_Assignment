@@ -272,27 +272,43 @@ int main(void)
     uint8_t OutArray[4]; 
     uint8_t TemperatureData[2];
     
+    uint8_t register_count = 0;
+    
     OutArray[0] = header;
     OutArray[3] = footer;
     
     for(;;)
     {
         CyDelay(100);
-        error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS,
+        /*error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS,
                                             LIS3DH_OUT_ADC_3L,
                                             &TemperatureData[0]);
         
         error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS,
                                             LIS3DH_OUT_ADC_3H,
-                                            &TemperatureData[1]);
+                                            &TemperatureData[1]);*/
+        
+        if(register_count == 2) register_count = 0;
+        
+        error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
+                                            LIS3DH_OUT_ADC_3H,
+                                            register_count,
+                                            &TemperatureData[register_count]);
+        register_count++;
+        
+        
         if(error == NO_ERROR)
         {
             OutTemp = (int16)((TemperatureData[0] | (TemperatureData[1]<<8)))>>6;
             OutArray[1] = (uint8_t)(OutTemp & 0xFF);
             OutArray[2] = (uint8_t)(OutTemp >> 8);
-            //UART_Debug_PutArray(OutArray, 4);
-            sprintf(message,"temp = %d\r\n", OutTemp);
+            sprintf(message,"temp[0] = %d\r\n",TemperatureData[0]);
             UART_Debug_PutString(message);
+            sprintf(message,"temp[1] = %d\r\n",TemperatureData[1]);
+            UART_Debug_PutString(message);
+            //UART_Debug_PutArray(OutArray, 4);
+            //sprintf(message,"temp = %d\r\n",OutTemp);
+            //UART_Debug_PutString(message);
         }
     }
 }

@@ -1,4 +1,4 @@
---------------- Build Started: 04/16/2020 11:26:36 Project: 03-I2C_Master_Advanced_Complete, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+--------------- Build Started: 04/24/2020 11:44:01 Project: 03-I2C_Master_Advanced_Complete, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
 The code generation step is up to date.
 arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_541\Debug/main.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og -c main.c -o .\CortexM3\ARM_GCC_541\Debug\main.o
 main.c: In function 'main':
@@ -13,6 +13,6 @@ No ELF section .cychecksum found, creating one
 Application checksum calculated and stored in ELF section .cychecksum
 Checksum calculated and stored in ELF section .cymeta
 cyelftool.exe -S C:\Users\annat\OneDrive\Desktop\POLITECNICO\LAB\PSoC_03_Complete\PSoC_03\03-I2C_Master_Advanced_Complete.cydsn\CortexM3\ARM_GCC_541\Debug\03-I2C_Master_Advanced_Complete.elf
-Flash used: 6800 of 262144 bytes (2,6%).
+Flash used: 6920 of 262144 bytes (2,6%).
 SRAM used: 2561 of 65536 bytes (3,9%). Stack: 2048 bytes. Heap: 128 bytes.
---------------- Build Succeeded: 04/16/2020 11:26:38 ---------------
+--------------- Build Succeeded: 04/24/2020 11:44:02 ---------------
