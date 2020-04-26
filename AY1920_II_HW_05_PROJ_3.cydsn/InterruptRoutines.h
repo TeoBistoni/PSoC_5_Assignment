@@ -14,6 +14,7 @@
     
     #include "cytypes.h"
     #include "stdio.h"
+    #include "math.h"
     #include "I2C_Interface.h"
     
         /**
@@ -39,7 +40,7 @@
     /**
     *   \brief Hex value to set normal mode to the accelerator
     */
-    #define LIS3DH_NORMAL_MODE_CTRL_REG1 0x57
+    #define LIS3DH_HIGH_RESOLUTION_MODE_CTRL_REG1 0x57
 
     /**
     *   \brief  Address of the Temperature Sensor Configuration register
@@ -55,7 +56,7 @@
 
     #define LIS3DH_CTRL_REG4_BDU_ACTIVE 0x80
 
-    #define LIS3DH_NORMAL_MODE_CTRL_REG4 0x08
+    #define LIS3DH_HIGH_RESOLUTION_MODE_CTRL_REG4 0x98
 
     /**
     *   \brief Address of the ADC output LSB register
@@ -74,7 +75,7 @@
     #define LIS3DH_OUT_Z_L 0x2C
     #define LIS3DH_OUT_Z_H 0x2D
     
-    #define BYTE_TO_SEND 6
+    #define BYTE_TO_SEND 12
     #define TRANSMIT_BUFFER_SIZE 1 + BYTE_TO_SEND + 1
     
     ErrorCode error;
@@ -85,14 +86,26 @@
     uint8_t Acc_xData[2];
     uint8_t Acc_yData[2];
     uint8_t Acc_zData[2];
+
+    union {
+        float x_acceleration;
+        unsigned char bytes_x[4];
+    }float_x;
+    
+    union {
+        float y_acceleration;
+        unsigned char bytes_y[4];
+    }float_y;
+    
+    union {
+        float z_acceleration;
+        unsigned char bytes_z[4];
+    }float_z;
     
     uint8_t OutArray[TRANSMIT_BUFFER_SIZE]; 
     volatile uint8_t FlagPacketReady;
     
-    
-    
     CY_ISR_PROTO(CUSTOM_ISR_TIMER);
-    
     
 #endif
 /* [] END OF FILE */

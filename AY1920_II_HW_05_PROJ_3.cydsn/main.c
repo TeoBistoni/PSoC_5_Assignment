@@ -31,7 +31,7 @@ int main(void)
     
     // String to print out messages on the UART
     char message[50];
-
+   
     // Check which devices are present on the I2C bus
     for (int i = 0 ; i < 128; i++)
     {
@@ -105,9 +105,9 @@ int main(void)
         
     UART_Debug_PutString("\r\nWriting new values..\r\n");
     
-    if (ctrl_reg1 != LIS3DH_NORMAL_MODE_CTRL_REG1)
+    if (ctrl_reg1 != LIS3DH_HIGH_RESOLUTION_MODE_CTRL_REG1)
     {
-        ctrl_reg1 = LIS3DH_NORMAL_MODE_CTRL_REG1;
+        ctrl_reg1 = LIS3DH_HIGH_RESOLUTION_MODE_CTRL_REG1;
     
         error = I2C_Peripheral_WriteRegister(LIS3DH_DEVICE_ADDRESS,
                                              LIS3DH_CTRL_REG1,
@@ -228,12 +228,25 @@ int main(void)
     OutArray[0] = header;
     OutArray[TRANSMIT_BUFFER_SIZE-1] = footer;
     
-    ctrl_reg4 = LIS3DH_NORMAL_MODE_CTRL_REG4; 
+    ctrl_reg4 = LIS3DH_HIGH_RESOLUTION_MODE_CTRL_REG4; 
     error = I2C_Peripheral_WriteRegister(LIS3DH_DEVICE_ADDRESS,
                                          LIS3DH_CTRL_REG4,
                                          ctrl_reg4);
     
-    ctrl_reg1 = LIS3DH_NORMAL_MODE_CTRL_REG1; 
+    error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS,
+                                         LIS3DH_CTRL_REG4,
+                                         &ctrl_reg4);
+    if (error == NO_ERROR)
+    {
+        sprintf(message, "MIO CONTROL REGISTER 4 after being updated: 0x%02X\r\n", ctrl_reg4);
+        UART_Debug_PutString(message); 
+    }
+    else
+    {
+        UART_Debug_PutString("Error occurred during I2C comm to read control register4\r\n");   
+    }
+    
+    ctrl_reg1 = LIS3DH_HIGH_RESOLUTION_MODE_CTRL_REG1; 
     error = I2C_Peripheral_WriteRegister(LIS3DH_DEVICE_ADDRESS,
                                          LIS3DH_CTRL_REG1,
                                          ctrl_reg1);
@@ -242,6 +255,7 @@ int main(void)
     {   
         if(FlagPacketReady == 1){
             UART_Debug_PutArray(OutArray,TRANSMIT_BUFFER_SIZE);
+            //UART_Debug_PutString("CIAO\r\n");
             FlagPacketReady = 0;
         }
      }

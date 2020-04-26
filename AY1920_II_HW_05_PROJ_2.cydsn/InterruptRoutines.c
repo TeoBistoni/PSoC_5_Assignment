@@ -20,7 +20,7 @@ CY_ISR(CUSTOM_ISR_TIMER){
         
         
         if(error == NO_ERROR){
-            if((status_register & 0b00000100) > 0){
+            if((status_register & 0b00001000) > 0){
                 //READ 3 AXIS VALUES
                 error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
                                                     LIS3DH_OUT_X_L,
