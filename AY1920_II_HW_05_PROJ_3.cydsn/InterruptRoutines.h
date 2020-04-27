@@ -83,24 +83,12 @@
     int16_t Accelerometer_x;
     int16_t Accelerometer_y;
     int16_t Accelerometer_z;
+    int32 x_acceleration;
+    int32 y_acceleration;
+    int32 z_acceleration;
     uint8_t Acc_xData[2];
     uint8_t Acc_yData[2];
     uint8_t Acc_zData[2];
-
-    union {
-        float x_acceleration;
-        unsigned char bytes_x[4];
-    }float_x;
-    
-    union {
-        float y_acceleration;
-        unsigned char bytes_y[4];
-    }float_y;
-    
-    union {
-        float z_acceleration;
-        unsigned char bytes_z[4];
-    }float_z;
     
     uint8_t OutArray[TRANSMIT_BUFFER_SIZE]; 
     volatile uint8_t FlagPacketReady;
