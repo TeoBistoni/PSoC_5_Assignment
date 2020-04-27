@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
   17:InterruptRoutines.c ****         error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS,
   39              		.loc 1 17 0
   40 0006 2D4A     		ldr	r2, .L6
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 2
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 2
 
 
   41 0008 2721     		movs	r1, #39
@@ -75,11 +75,11 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
   47              		.loc 1 22 0
   48 0014 0028     		cmp	r0, #0
   49 0016 4CD1     		bne	.L2
-  23:InterruptRoutines.c ****             if((status_register & 0b00000100) > 0){
+  23:InterruptRoutines.c ****             if((status_register & 0b00001000) > 0){
   50              		.loc 1 23 0
   51 0018 284B     		ldr	r3, .L6
   52 001a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
-  53 001c 13F0040F 		tst	r3, #4
+  53 001c 13F0080F 		tst	r3, #8
   54 0020 47D0     		beq	.L2
   24:InterruptRoutines.c ****                 //READ 3 AXIS VALUES
   25:InterruptRoutines.c ****                 error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
   80 0050 9370     		strb	r3, [r2, #2]
   81              	.L3:
   33:InterruptRoutines.c ****                  }
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 3
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 3
 
 
   34:InterruptRoutines.c ****                 
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
   50:InterruptRoutines.c ****                     Accelerometer_z = (int16)((Acc_zData[0] | (Acc_zData[1]<<8)))>>6;
  120              		.loc 1 50 0
  121 0094 104A     		ldr	r2, .L6+28
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 4
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 4
 
 
  122 0096 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  170              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
  171              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
  172              		.file 5 "ErrorCodes.h"
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 5
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 5
 
 
  173              		.file 6 "InterruptRoutines.h"
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  227 006a 04       		.byte	0x4
  228 006b 07       		.byte	0x7
  229 006c 03010000 		.4byte	.LASF8
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 6
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 6
 
 
  230 0070 02       		.uleb128 0x2
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  284 00d7 07       		.byte	0x7
  285 00d8 80020000 		.4byte	.LASF20
  286 00dc 06       		.uleb128 0x6
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 7
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 7
 
 
  287 00dd 01       		.byte	0x1
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  341 0146 2E000000 		.4byte	.LVL2
  342 014a A8020000 		.4byte	0x2a8
  343 014e 6C010000 		.4byte	0x16c
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 8
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 8
 
 
  344 0152 0C       		.uleb128 0xc
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  398 019d 01       		.uleb128 0x1
  399 019e 50       		.byte	0x50
  400 019f 01       		.uleb128 0x1
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 9
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 9
 
 
  401 01a0 48       		.byte	0x48
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  455 0200 06       		.byte	0x6
  456 0201 54       		.byte	0x54
  457 0202 97000000 		.4byte	0x97
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 10
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 10
 
 
  458 0206 05       		.uleb128 0x5
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  512 027b 05       		.uleb128 0x5
  513 027c 03       		.byte	0x3
  514 027d 00000000 		.4byte	FlagPacketReady
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 11
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 11
 
 
  515 0281 11       		.uleb128 0x11
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  569 001d 00       		.byte	0
  570 001e 03       		.uleb128 0x3
  571 001f 16       		.uleb128 0x16
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 12
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 12
 
 
  572 0020 00       		.byte	0
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  626 0056 0E       		.uleb128 0xe
  627 0057 1C       		.uleb128 0x1c
  628 0058 0B       		.uleb128 0xb
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 13
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 13
 
 
  629 0059 00       		.byte	0
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  683 0094 0C       		.uleb128 0xc
  684 0095 8A8201   		.uleb128 0x410a
  685 0098 00       		.byte	0
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 14
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 14
 
 
  686 0099 02       		.uleb128 0x2
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  740 00d2 0E       		.uleb128 0xe
  741 00d3 3A       		.uleb128 0x3a
  742 00d4 0B       		.uleb128 0xb
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 15
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 15
 
 
  743 00d5 3B       		.uleb128 0x3b
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  793 0000 5F5F7569 		.ascii	"__uint8_t\000"
  793      6E74385F 
  793      7400
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 16
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 16
 
 
  794              	.LASF3:
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  815      3600
  816              	.LASF8:
  817 0103 6C6F6E67 		.ascii	"long unsigned int\000"
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 17
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 17
 
 
  817      20756E73 
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  838 01d3 41425C50 		.ascii	"AB\\PSoC_03_Complete\\AY1920_II_HW_05_BISTONI_TEO\\"
  838      536F435F 
  838      30335F43 
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 18
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 18
 
 
  838      6F6D706C 
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 1
  863      00
  864              	.LASF36:
  865 02a2 4932435F 		.ascii	"I2C_Peripheral_ReadRegister\000"
-ARM GAS  C:\Users\annat\AppData\Local\Temp\cczR4YsK.s 			page 19
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccO6Lih4.s 			page 19
 
 
  865      50657269 

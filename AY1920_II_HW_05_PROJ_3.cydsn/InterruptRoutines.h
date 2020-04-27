@@ -14,83 +14,44 @@
     
     #include "cytypes.h"
     #include "stdio.h"
-    #include "math.h"
     #include "I2C_Interface.h"
-    
-        /**
-    *   \brief 7-bit I2C address of the slave device.
-    */
-    #define LIS3DH_DEVICE_ADDRESS 0x18
-
-    /**
-    *   \brief Address of the WHO AM I register
-    */
-    #define LIS3DH_WHO_AM_I_REG_ADDR 0x0F
-
-    /**
-    *   \brief Address of the Status register
-    */
-    #define LIS3DH_STATUS_REG 0x27
-
-    /**
-    *   \brief Address of the Control register 1
-    */
-    #define LIS3DH_CTRL_REG1 0x20
-
-    /**
-    *   \brief Hex value to set normal mode to the accelerator
-    */
-    #define LIS3DH_HIGH_RESOLUTION_MODE_CTRL_REG1 0x57
-
-    /**
-    *   \brief  Address of the Temperature Sensor Configuration register
-    */
-    #define LIS3DH_TEMP_CFG_REG 0x1F
-
-    #define LIS3DH_TEMP_CFG_REG_ACTIVE 0xC0
-
-    /**
-    *   \brief Address of the Control register 4
-    */
-    #define LIS3DH_CTRL_REG4 0x23
-
-    #define LIS3DH_CTRL_REG4_BDU_ACTIVE 0x80
-
-    #define LIS3DH_HIGH_RESOLUTION_MODE_CTRL_REG4 0x98
-
-    /**
-    *   \brief Address of the ADC output LSB register
-    */
-    #define LIS3DH_OUT_ADC_3L 0x0C
-
-    /**
-    *   \brief Address of the ADC output MSB register
-    */
-    #define LIS3DH_OUT_ADC_3H 0x0D
-
-    #define LIS3DH_OUT_X_L 0x28
-    #define LIS3DH_OUT_X_H 0x29
-    #define LIS3DH_OUT_Y_L 0x2A
-    #define LIS3DH_OUT_Y_H 0x2B
-    #define LIS3DH_OUT_Z_L 0x2C
-    #define LIS3DH_OUT_Z_H 0x2D
+    #include "RegistersDefinitions.h"
     
     #define BYTE_TO_SEND 12
     #define TRANSMIT_BUFFER_SIZE 1 + BYTE_TO_SEND + 1
+        
+    //parameters for the Scaler function (to turn values from digit to m/(s^2))
+    //max and min digit
+    #define OLD_MAX 2048 
+    #define OLD_MIN -2048
+    //max and min g
+    #define NEW_MAX 4
+    #define NEW_MIN -4
+    //gravity constant
+    #define G_CONSTANT 9.81
     
     ErrorCode error;
+    
     uint8_t status_register; 
-    int16_t Accelerometer_x;
-    int16_t Accelerometer_y;
-    int16_t Accelerometer_z;
-    int32 x_acceleration;
-    int32 y_acceleration;
-    int32 z_acceleration;
+    
+    //MSB and LSB of the outputs
     uint8_t Acc_xData[2];
     uint8_t Acc_yData[2];
     uint8_t Acc_zData[2];
     
+    //These variables represent the value of the output in digits
+    int16_t Accelerometer_x;
+    int16_t Accelerometer_y;
+    int16_t Accelerometer_z;
+    
+    //These represent the value of the output in m/(s^2)
+    int32 x_acceleration;
+    int32 y_acceleration;
+    int32 z_acceleration;
+    
+    //Packet which will be transmitted to the Bridge Control Panel
     uint8_t OutArray[TRANSMIT_BUFFER_SIZE]; 
+    
     volatile uint8_t FlagPacketReady;
     
     CY_ISR_PROTO(CUSTOM_ISR_TIMER);
