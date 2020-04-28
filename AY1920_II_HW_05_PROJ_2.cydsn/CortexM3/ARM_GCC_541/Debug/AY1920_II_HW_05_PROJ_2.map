@@ -1220,27 +1220,27 @@ END GROUP
  .debug_abbrev  0x000014aa      0x1a7 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CyFlash.o)
  .debug_abbrev  0x00001651      0x194 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CySpc.o)
 
-.debug_line     0x00000000     0x27cf
+.debug_line     0x00000000     0x27d1
  *(.debug_line)
  .debug_line    0x00000000      0x282 .\CortexM3\ARM_GCC_541\Debug\main.o
  .debug_line    0x00000282      0x209 .\CortexM3\ARM_GCC_541\Debug\I2C_Interface.o
- .debug_line    0x0000048b      0x1c7 .\CortexM3\ARM_GCC_541\Debug\InterruptRoutines.o
- .debug_line    0x00000652      0x1f4 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
- .debug_line    0x00000846      0x141 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
- .debug_line    0x00000987      0x234 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
- .debug_line    0x00000bbb      0x2c8 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(UART_Debug.o)
- .debug_line    0x00000e83       0xee .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(I2C_Master.o)
- .debug_line    0x00000f71      0x122 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(I2C_Master_INT.o)
- .debug_line    0x00001093       0xc9 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(I2C_Master_PM.o)
- .debug_line    0x0000115c      0x20b .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(I2C_Master_MASTER.o)
- .debug_line    0x00001367      0x182 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(UART_Debug_IntClock.o)
- .debug_line    0x000014e9      0x816 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CyLib.o)
- .debug_line    0x00001cff      0x367 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(cyPm.o)
- .debug_line    0x00002066      0x153 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(Timer.o)
- .debug_line    0x000021b9      0x136 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(TIMER_isr.o)
- .debug_line    0x000022ef       0x66 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CyBootAsmGnu.o)
- .debug_line    0x00002355      0x21a .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CyFlash.o)
- .debug_line    0x0000256f      0x260 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CySpc.o)
+ .debug_line    0x0000048b      0x1c9 .\CortexM3\ARM_GCC_541\Debug\InterruptRoutines.o
+ .debug_line    0x00000654      0x1f4 .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_line    0x00000848      0x141 .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
+ .debug_line    0x00000989      0x234 .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o
+ .debug_line    0x00000bbd      0x2c8 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(UART_Debug.o)
+ .debug_line    0x00000e85       0xee .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(I2C_Master.o)
+ .debug_line    0x00000f73      0x122 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(I2C_Master_INT.o)
+ .debug_line    0x00001095       0xc9 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(I2C_Master_PM.o)
+ .debug_line    0x0000115e      0x20b .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(I2C_Master_MASTER.o)
+ .debug_line    0x00001369      0x182 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(UART_Debug_IntClock.o)
+ .debug_line    0x000014eb      0x816 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CyLib.o)
+ .debug_line    0x00001d01      0x367 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(cyPm.o)
+ .debug_line    0x00002068      0x153 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(Timer.o)
+ .debug_line    0x000021bb      0x136 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(TIMER_isr.o)
+ .debug_line    0x000022f1       0x66 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CyBootAsmGnu.o)
+ .debug_line    0x00002357      0x21a .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CyFlash.o)
+ .debug_line    0x00002571      0x260 .\CortexM3\ARM_GCC_541\Debug\AY1920_II_HW_05_PROJ_2.a(CySpc.o)
 
 .debug_frame    0x00000000     0x1ac4
  *(.debug_frame)
