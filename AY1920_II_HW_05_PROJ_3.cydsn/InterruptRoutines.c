@@ -62,20 +62,20 @@ CY_ISR(CUSTOM_ISR_TIMER){
                 z_acceleration = Accelerometer_z * sensitivity;
                 
                 //Preparation of the packet
-                OutArray[1] = x_acceleration & 0xFF;//LSB x-axis output
-                OutArray[2] = (x_acceleration >> 8) & 0xFF;
-                OutArray[3] = (x_acceleration >> 16)&0xFF;
-                OutArray[4] = x_acceleration >> 24; //MSB x-axis output
+                OutArray[1] = (uint8_t)(x_acceleration & 0xFF);//LSB x-axis output
+                OutArray[2] = (uint8_t)(x_acceleration >> 8) & 0xFF;
+                OutArray[3] = (uint8_t)(x_acceleration >> 16)&0xFF;
+                OutArray[4] = (uint8_t)(x_acceleration >> 24); //MSB x-axis output
                 
-                OutArray[5] = y_acceleration & 0xFF;//LSB y-axis output
-                OutArray[6] = (y_acceleration >> 8) & 0xFF;
-                OutArray[7] = (y_acceleration >> 16)&0xFF;
-                OutArray[8] = y_acceleration >> 24;//MSB y-axis output
+                OutArray[5] = (uint8_t)(y_acceleration & 0xFF);//LSB y-axis output
+                OutArray[6] = (uint8_t)(y_acceleration >> 8) & 0xFF;
+                OutArray[7] = (uint8_t)(y_acceleration >> 16)&0xFF;
+                OutArray[8] = (uint8_t)(y_acceleration >> 24);//MSB y-axis output
                 
-                OutArray[9] = z_acceleration & 0xFF;//LSB z-axis output
-                OutArray[10] = (z_acceleration >> 8) & 0xFF;
-                OutArray[11] = (z_acceleration >> 16)&0xFF;
-                OutArray[12] = z_acceleration >> 24;//MSB z-axis output
+                OutArray[9] = (uint8_t)(z_acceleration & 0xFF);//LSB z-axis output
+                OutArray[10] = (uint8_t)(z_acceleration >> 8) & 0xFF;
+                OutArray[11] = (uint8_t)(z_acceleration >> 16)&0xFF;
+                OutArray[12] = (uint8_t)(z_acceleration >> 24);//MSB z-axis output
                 
                 FlagPacketReady = 1;//the packet is ready to be sent
             }
