@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 1
 
 
    1              		.syntax unified
@@ -53,18 +53,18 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
   20:InterruptRoutines.c **** int16_t Accelerometer_y;
   21:InterruptRoutines.c **** int16_t Accelerometer_z;
   22:InterruptRoutines.c **** 
-  23:InterruptRoutines.c **** //These represent the value of the output in m/(s^2)
+  23:InterruptRoutines.c **** //These represent the value of the output in m/(s^2) 
   24:InterruptRoutines.c **** int32 x_acceleration;
   25:InterruptRoutines.c **** int32 y_acceleration;
   26:InterruptRoutines.c **** int32 z_acceleration;
   27:InterruptRoutines.c **** 
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 2
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 2
 
 
-  28:InterruptRoutines.c **** /*Instead of using a scaler function to convert data from mg to m/(s^2), I preferred
+  28:InterruptRoutines.c **** /*Instead of using a scaler function to convert data from digit to m/(s^2), I preferred
   29:InterruptRoutines.c ****   to abide by the datasheet and to use the sensitivity that it specifies (1mg/digit @+-2g FSR,
   30:InterruptRoutines.c ****   so 2mg/digit @+-4g FSR in high resolution mode).
-  31:InterruptRoutines.c ****   Moreover, I chose not to cut the values above 500 digits or below -500 digits.
+  31:InterruptRoutines.c ****   Moreover, I chose not to cut the values above 2000 digits or below -2000 digits.
   32:InterruptRoutines.c ****   Therefore the output can result greater than 4g or lower than -4g. */
   33:InterruptRoutines.c **** float sensitivity = ((2*9.81)/1000)*10000; //multiplying by 10000 in order to keep 4 decimals
   34:InterruptRoutines.c ****  
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
   67 002a FFF7FEFF 		bl	I2C_Peripheral_ReadRegisterMulti
   68              	.LVL2:
   69 002e 2D4B     		ldr	r3, .L4+4
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 3
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 3
 
 
   70 0030 1870     		strb	r0, [r3]
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
   61:InterruptRoutines.c ****                 y_acceleration = Accelerometer_y * sensitivity;
  109              		.loc 1 61 0
  110 0080 2046     		mov	r0, r4
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 4
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 4
 
 
  111 0082 FFF7FEFF 		bl	__aeabi_i2f
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  153 00c4 2416     		asrs	r4, r4, #24
  154 00c6 1C72     		strb	r4, [r3, #8]
   74:InterruptRoutines.c ****                 
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 5
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 5
 
 
   75:InterruptRoutines.c ****                 OutArray[9] = z_acceleration & 0xFF;//LSB z-axis output
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  203              		.align	2
  204              		.set	.LANCHOR0,. + 0
  205              		.type	sensitivity, %object
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 6
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 6
 
 
  206              		.size	sensitivity, 4
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  260 0058 2A000000 		.4byte	.LASF6
  261 005c 02       		.byte	0x2
  262 005d 3F       		.byte	0x3f
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 7
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 7
 
 
  263 005e 62000000 		.4byte	0x62
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  317 00cc 02       		.uleb128 0x2
  318 00cd 08       		.byte	0x8
  319 00ce 04       		.byte	0x4
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 8
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 8
 
 
  320 00cf 00010000 		.4byte	.LASF18
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  374 0141 0C       		.uleb128 0xc
  375 0142 01       		.uleb128 0x1
  376 0143 51       		.byte	0x51
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 9
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 9
 
 
  377 0144 02       		.uleb128 0x2
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  431 0198 8C000000 		.4byte	0x8c
  432 019c A7010000 		.4byte	0x1a7
  433 01a0 10       		.uleb128 0x10
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 10
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 10
 
 
  434 01a1 E1000000 		.4byte	0xe1
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  488 0217 05       		.uleb128 0x5
  489 0218 03       		.byte	0x3
  490 0219 00000000 		.4byte	Accelerometer_y
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 11
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 11
 
 
  491 021d 0E       		.uleb128 0xe
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  545 0292 36       		.byte	0x36
  546 0293 00       		.byte	0
  547              		.section	.debug_abbrev,"",%progbits
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 12
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 12
 
 
  548              	.Ldebug_abbrev0:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  602 0035 00       		.byte	0
  603 0036 05       		.uleb128 0x5
  604 0037 16       		.uleb128 0x16
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 13
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 13
 
 
  605 0038 00       		.byte	0
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  659 006e 19       		.uleb128 0x19
  660 006f 11       		.uleb128 0x11
  661 0070 01       		.uleb128 0x1
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 14
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 14
 
 
  662 0071 12       		.uleb128 0x12
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  716 00b1 0B       		.uleb128 0xb
  717 00b2 3B       		.uleb128 0x3b
  718 00b3 0B       		.uleb128 0xb
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 15
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 15
 
 
  719 00b4 49       		.uleb128 0x49
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  773 00ea 3A       		.uleb128 0x3a
  774 00eb 0B       		.uleb128 0xb
  775 00ec 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 16
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 16
 
 
  776 00ed 0B       		.uleb128 0xb
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  812      52656769 
  813              	.LASF5:
  814 004d 73686F72 		.ascii	"short unsigned int\000"
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 17
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 17
 
 
  814      7420756E 
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  838 00e3 49544D5F 		.ascii	"ITM_RxBuffer\000"
  838      52784275 
  838      66666572 
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 18
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 18
 
 
  838      00
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  858      7369676E 
  858      65642069 
  859              	.LASF12:
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 19
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 19
 
 
  860 01ef 75696E74 		.ascii	"uint8_t\000"
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 1
  883              	.LASF22:
  884 02ec 4E4F5F45 		.ascii	"NO_ERROR\000"
  884      52524F52 
-ARM GAS  C:\Users\annat\AppData\Local\Temp\ccFknAo4.s 			page 20
+ARM GAS  C:\Users\annat\AppData\Local\Temp\ccJFUqsa.s 			page 20
 
 
  884      00
