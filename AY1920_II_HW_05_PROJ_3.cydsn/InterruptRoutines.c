@@ -20,7 +20,7 @@ int16_t Accelerometer_x;
 int16_t Accelerometer_y;
 int16_t Accelerometer_z;
 
-//These represent the value of the output in m/(s^2)
+//These represent the value of the output in m/(s^2) 
 int32 x_acceleration;
 int32 y_acceleration;
 int32 z_acceleration;
