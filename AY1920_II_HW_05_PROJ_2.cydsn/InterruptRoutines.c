@@ -12,8 +12,7 @@
 #include "InterruptRoutines.h"
 #include "project.h"
 
-/*the Scaler function returns a 32-bit integer because 16 bit are not sufficient to
-  cast a floating point to an integer keeping 3 or more decimals*/
+/*the Scaler function returns a 16-bit integer (the value of the output in mg)*/
 int16 Scaler(int min, int max, int a, int b, int x);
 
 
@@ -35,7 +34,7 @@ CY_ISR(CUSTOM_ISR_TIMER){
                 if(error == NO_ERROR){ 
                     Accelerometer_x = (int16)((Acc_xData[0] | (Acc_xData[1]<<8)))>>6;
                     x_acceleration = Scaler(OLD_MAX, OLD_MIN, NEW_MAX, NEW_MIN, Accelerometer_x);
-                    //digit values multiplied by 4 in order to convert them to mg units
+                    
                     OutArray[1] = (uint8_t)(x_acceleration & 0xFF); //LSB
                     OutArray[2] = (uint8_t)(x_acceleration >> 8); //MSB
                 }
@@ -48,7 +47,7 @@ CY_ISR(CUSTOM_ISR_TIMER){
                 if(error == NO_ERROR){ 
                     Accelerometer_y = (int16)((Acc_yData[0] | (Acc_yData[1]<<8)))>>6;
                     y_acceleration = Scaler(OLD_MAX, OLD_MIN, NEW_MAX, NEW_MIN, Accelerometer_y);
-                    //digit values multiplied by 4 in order to convert them to mg units
+                    
                     OutArray[3] = (uint8_t)(y_acceleration & 0xFF); //LSB
                     OutArray[4] = (uint8_t)(y_acceleration >> 8); //MSB
                 }
@@ -61,7 +60,7 @@ CY_ISR(CUSTOM_ISR_TIMER){
                 if(error == NO_ERROR){
                     Accelerometer_z = (int16)((Acc_zData[0] | (Acc_zData[1]<<8)))>>6;
                     z_acceleration = Scaler(OLD_MAX, OLD_MIN, NEW_MAX, NEW_MIN, Accelerometer_z);
-                    //digit values multiplied by 4 in order to convert them to mg units
+                    
                     OutArray[5] = (uint8_t)(z_acceleration & 0xFF); //LSB
                     OutArray[6] = (uint8_t)(z_acceleration >> 8); //MSB
                     
@@ -72,7 +71,7 @@ CY_ISR(CUSTOM_ISR_TIMER){
         }
 }
 int16 Scaler(int max, int min, int b, int a, int x){
-    //scaling the values from digit to m/(s^2) and multiplying by 10000 to keep 4 decimal.
+    //scaling the values from digit to mg.
     return ((((x-min)*(b-a))/(max-min))+a);
 }
 /* [] END OF FILE */

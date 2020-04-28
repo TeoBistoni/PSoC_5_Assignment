@@ -44,6 +44,7 @@
     int16_t Accelerometer_y;
     int16_t Accelerometer_z;
     
+    // values of the 3-axis output in mg
     int16_t x_acceleration;
     int16_t y_acceleration;
     int16_t z_acceleration;
