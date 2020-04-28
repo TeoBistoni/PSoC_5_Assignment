@@ -14,8 +14,6 @@
 #include "project.h"
 #include "stdio.h"
 
-
-
 int main(void)
 {
     CyGlobalIntEnable; /* Enable global interrupts. */

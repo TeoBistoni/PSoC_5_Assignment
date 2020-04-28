@@ -25,10 +25,10 @@ int32 x_acceleration;
 int32 y_acceleration;
 int32 z_acceleration;
 
-/*Instead of using a scaler function to convert data from mg to m/(s^2), I preferred
+/*Instead of using a scaler function to convert data from digit to m/(s^2), I preferred
   to abide by the datasheet and to use the sensitivity that it specifies (1mg/digit @+-2g FSR,
   so 2mg/digit @+-4g FSR in high resolution mode).
-  Moreover, I chose not to cut the values above 500 digits or below -500 digits.
+  Moreover, I chose not to cut the values above 2000 digits or below -2000 digits.
   Therefore the output can result greater than 4g or lower than -4g. */
 float sensitivity = ((2*9.81)/1000)*10000; //multiplying by 10000 in order to keep 4 decimals
  
