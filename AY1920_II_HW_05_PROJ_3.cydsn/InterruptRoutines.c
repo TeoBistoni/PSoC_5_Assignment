@@ -12,84 +12,75 @@
 #include "InterruptRoutines.h"
 #include "project.h"
 
-/*the Scaler function returns a 32-bit integer because 16 bit are not sufficient to
-  cast a floating point to an integer keeping 3 or more decimals*/
-int32 Scaler(int min, int max, float a, float b, int x);
+//MSB and LSB of the 3 outputs
+uint8_t Acc_Data[6];
 
+//These variables represent the value of the output in digits
+int16_t Accelerometer_x;
+int16_t Accelerometer_y;
+int16_t Accelerometer_z;
+
+//These represent the value of the output in m/(s^2)
+int32 x_acceleration;
+int32 y_acceleration;
+int32 z_acceleration;
+
+/*Instead of using a scaler function to convert data from mg to m/(s^2), I preferred
+  to abide by the datasheet and to use the sensitivity that it specifies (1mg/digit @+-2g FSR,
+  so 2mg/digit @+-4g FSR in high resolution mode).
+  Moreover, I chose not to cut the values above 500 digits or below -500 digits.
+  Therefore the output can result greater than 4g or lower than -4g. */
+float sensitivity = ((2*9.81)/1000)*10000; //multiplying by 10000 in order to keep 4 decimals
+ 
 CY_ISR(CUSTOM_ISR_TIMER){
-        Timer_ReadStatusRegister();
-        error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS,
-                                        LIS3DH_STATUS_REG,
-                                        &status_register);
-        
-        if(error == NO_ERROR){
-            if((status_register & 0b00001000) > 0){ //check  if new data is available
+    Timer_ReadStatusRegister();
+    error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS,
+                                    LIS3DH_STATUS_REG,
+                                    &status_register);
+    
+    if(error == NO_ERROR){
+        if((status_register & LIS3DH_STATUS_REGISTER_MASK) == LIS3DH_STATUS_REGISTER_MASK){ //check  if new data is available
+            
+            //READ X/Y/Z-AXIS VALUES
+            error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
+                                                LIS3DH_OUT_X_L,
+                                                6,
+                                                &Acc_Data[0]);
+            
+            if(error == NO_ERROR){ 
+                //In high resolution mode the data output is a 12-bit value
+                //reconstruction of x-axis value
+                Accelerometer_x = (int16)((Acc_Data[0] | (Acc_Data[1]<<8)))>>4;
+                //reconstruction of y-axis value
+                Accelerometer_y = (int16)((Acc_Data[2] | (Acc_Data[3]<<8)))>>4;
+                //reconstruction of z-axis value
+                Accelerometer_z = (int16)((Acc_Data[4] | (Acc_Data[5]<<8)))>>4;
                 
-                //READ X-AXIS VALUE
-                error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
-                                                    LIS3DH_OUT_X_L,
-                                                    2,
-                                                    &Acc_xData[0]);
-                if(error == NO_ERROR){ 
-                    //In high resolution mode the data output is a 12-bit value
-                    Accelerometer_x = (int16)((Acc_xData[0] | (Acc_xData[1]<<8)))>>4;
-                    x_acceleration = Scaler(OLD_MAX, OLD_MIN, NEW_MAX*G_CONSTANT, NEW_MIN*G_CONSTANT, Accelerometer_x);
-                    
-                    OutArray[1] = x_acceleration & 0xFF;//LSB
-                    OutArray[2] = (x_acceleration >> 8) & 0xFF;
-                    OutArray[3] = (x_acceleration >> 16)&0xFF;
-                    OutArray[4] = x_acceleration >> 24; //MSB
-                    
-                 }else{
-                    UART_Debug_PutString("Error occurred during I2C comm to read OUT_X_L and OUT_X_H registers\r\n");   
-                 }
+                //convertion of the output values from digits to m/s^2 and casting the floating point to an int32
+                x_acceleration = Accelerometer_x * sensitivity;
+                y_acceleration = Accelerometer_y * sensitivity;
+                z_acceleration = Accelerometer_z * sensitivity;
                 
-                //READ Y-AXIS VALUE
-                error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
-                                                    LIS3DH_OUT_Y_L,
-                                                    2,
-                                                    &Acc_yData[0]);
-                if(error == NO_ERROR){ 
-                    Accelerometer_y = (int16)((Acc_yData[0] | (Acc_yData[1]<<8)))>>4;
-                    y_acceleration = Scaler(OLD_MAX, OLD_MIN, NEW_MAX*G_CONSTANT, NEW_MIN*G_CONSTANT, Accelerometer_y);
-                    
-                    OutArray[5] = y_acceleration & 0xFF;//LSB
-                    OutArray[6] = (y_acceleration >> 8) & 0xFF;
-                    OutArray[7] = (y_acceleration >> 16)&0xFF;
-                    OutArray[8] = y_acceleration >> 24;//MSB
-                    
-                }else{
-                    UART_Debug_PutString("Error occurred during I2C comm to read OUT_Y_L and OUT_Y_H registers\r\n");   
-                 }
+                //Preparation of the packet
+                OutArray[1] = x_acceleration & 0xFF;//LSB x-axis output
+                OutArray[2] = (x_acceleration >> 8) & 0xFF;
+                OutArray[3] = (x_acceleration >> 16)&0xFF;
+                OutArray[4] = x_acceleration >> 24; //MSB x-axis output
                 
-                //READ Z-AXIS VALUE
-                error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
-                                                    LIS3DH_OUT_Z_L,
-                                                    2,
-                                                    &Acc_zData[0]);
-                if(error == NO_ERROR){
-                    Accelerometer_z = (int16)((Acc_zData[0] | (Acc_zData[1]<<8)))>>4;
-                    z_acceleration = Scaler(OLD_MAX, OLD_MIN, NEW_MAX*G_CONSTANT, NEW_MIN*G_CONSTANT, Accelerometer_z);
-
-                    OutArray[9] = z_acceleration & 0xFF;//LSB
-                    OutArray[10] = (z_acceleration >> 8) & 0xFF;
-                    OutArray[11] = (z_acceleration >> 16)&0xFF;
-                    OutArray[12] = z_acceleration >> 24;//MSB
-                    
-                    FlagPacketReady = 1;//the packet is ready to be sent
-                    
-                }else{
-                    UART_Debug_PutString("Error occurred during I2C comm to read OUT_Z_L and OUT_Z_H registers\r\n");   
-                 }
+                OutArray[5] = y_acceleration & 0xFF;//LSB y-axis output
+                OutArray[6] = (y_acceleration >> 8) & 0xFF;
+                OutArray[7] = (y_acceleration >> 16)&0xFF;
+                OutArray[8] = y_acceleration >> 24;//MSB y-axis output
+                
+                OutArray[9] = z_acceleration & 0xFF;//LSB z-axis output
+                OutArray[10] = (z_acceleration >> 8) & 0xFF;
+                OutArray[11] = (z_acceleration >> 16)&0xFF;
+                OutArray[12] = z_acceleration >> 24;//MSB z-axis output
+                
+                FlagPacketReady = 1;//the packet is ready to be sent
             }
-        }else{
-            UART_Debug_PutString("Error occurred during I2C comm to read control register\r\n");   
         }
-}
-
-int32 Scaler(int max, int min, float b, float a, int x){
-    //scaling the values from digit to m/(s^2) and multiplying by 10000 to keep 4 decimal.
-    return ((((x-min)*(b-a))/(max-min))+a)*10000;
+    }
 }
 
 /* [] END OF FILE */
