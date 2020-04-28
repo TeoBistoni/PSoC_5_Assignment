@@ -23,31 +23,8 @@
     //mask to check if new data is available
     #define LIS3DH_STATUS_REGISTER_MASK 0x08
     
-    //parameters for the Scaler function (to turn values from digit to mg)
-    //max and min digit
-    #define OLD_MAX 511 
-    #define OLD_MIN -512
-    //max and min mg
-    #define NEW_MAX 2000
-    #define NEW_MIN -2000
-    
     ErrorCode error;
     uint8_t status_register; 
-        
-    //MSB and LSB of the outputs
-    uint8_t Acc_xData[2];
-    uint8_t Acc_yData[2];
-    uint8_t Acc_zData[2];
-    
-    //values of the 3-axis output in digits
-    int16_t Accelerometer_x;
-    int16_t Accelerometer_y;
-    int16_t Accelerometer_z;
-    
-    // values of the 3-axis output in mg
-    int16_t x_acceleration;
-    int16_t y_acceleration;
-    int16_t z_acceleration;
     
     uint8_t OutArray[TRANSMIT_BUFFER_SIZE];
     

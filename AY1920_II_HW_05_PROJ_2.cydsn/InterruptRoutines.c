@@ -12,66 +12,52 @@
 #include "InterruptRoutines.h"
 #include "project.h"
 
-/*the Scaler function returns a 16-bit integer (the value of the output in mg)*/
-int16 Scaler(int min, int max, int a, int b, int x);
+//MSB and LSB of the outputs
+uint8_t Acc_Data[6];
 
+//values of the 3-axis output in digits
+int16_t Accelerometer_x;
+int16_t Accelerometer_y;
+int16_t Accelerometer_z;
 
 CY_ISR(CUSTOM_ISR_TIMER){
-        Timer_ReadStatusRegister();
-        error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS,
-                                        LIS3DH_STATUS_REG,
-                                        &status_register);
-        
-        
-        if(error == NO_ERROR){
-            if((status_register & LIS3DH_STATUS_REGISTER_MASK) == LIS3DH_STATUS_REGISTER_MASK){
+    Timer_ReadStatusRegister();
+    error = I2C_Peripheral_ReadRegister(LIS3DH_DEVICE_ADDRESS,
+                                    LIS3DH_STATUS_REG,
+                                    &status_register);
+    
+    
+    if(error == NO_ERROR){
+        if((status_register & LIS3DH_STATUS_REGISTER_MASK) == LIS3DH_STATUS_REGISTER_MASK){
+            
+            //READ X/Y/Z-AXIS VALUES
+            error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
+                                                LIS3DH_OUT_X_L,
+                                                6,
+                                                &Acc_Data[0]);
+            if(error == NO_ERROR){ 
                 
-                //READ X-AXIS VALUES
-                error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
-                                                    LIS3DH_OUT_X_L,
-                                                    2,
-                                                    &Acc_xData[0]);
-                if(error == NO_ERROR){ 
-                    Accelerometer_x = (int16)((Acc_xData[0] | (Acc_xData[1]<<8)))>>6;
-                    x_acceleration = Scaler(OLD_MAX, OLD_MIN, NEW_MAX, NEW_MIN, Accelerometer_x);
-                    
-                    OutArray[1] = (uint8_t)(x_acceleration & 0xFF); //LSB
-                    OutArray[2] = (uint8_t)(x_acceleration >> 8); //MSB
-                }
+              /*Instead of using a scaler function to convert data from digit to mg, I preferred
+                to abide by the datasheet and to use the sensitivity that it specifies (4mg/digit @+-2g FSR,
+                FSR in normal mode).
+                Moreover, I chose not to cut the values above 500 digits or below -500 digits.
+                Therefore the output can result greater than 2000mg or lower than -2000mg. */
                 
-                //READ Y-AXIS VALUES
-                error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
-                                                    LIS3DH_OUT_Y_L,
-                                                    2,
-                                                    &Acc_yData[0]);
-                if(error == NO_ERROR){ 
-                    Accelerometer_y = (int16)((Acc_yData[0] | (Acc_yData[1]<<8)))>>6;
-                    y_acceleration = Scaler(OLD_MAX, OLD_MIN, NEW_MAX, NEW_MIN, Accelerometer_y);
-                    
-                    OutArray[3] = (uint8_t)(y_acceleration & 0xFF); //LSB
-                    OutArray[4] = (uint8_t)(y_acceleration >> 8); //MSB
-                }
+                //In order to multiply the digit value by 4, It is sufficient to shift it to the right by 4 instead of 6.
+                Accelerometer_x = (int16)((Acc_Data[0] | (Acc_Data[1]<<8)))>>4;
+                Accelerometer_y = (int16)((Acc_Data[2] | (Acc_Data[3]<<8)))>>4;
+                Accelerometer_z = (int16)((Acc_Data[4] | (Acc_Data[5]<<8)))>>4;
                 
-                //READ Z-AXIS VALUES
-                error = I2C_Peripheral_ReadRegisterMulti(LIS3DH_DEVICE_ADDRESS,
-                                                    LIS3DH_OUT_Z_L,
-                                                    2,
-                                                    &Acc_zData[0]);
-                if(error == NO_ERROR){
-                    Accelerometer_z = (int16)((Acc_zData[0] | (Acc_zData[1]<<8)))>>6;
-                    z_acceleration = Scaler(OLD_MAX, OLD_MIN, NEW_MAX, NEW_MIN, Accelerometer_z);
-                    
-                    OutArray[5] = (uint8_t)(z_acceleration & 0xFF); //LSB
-                    OutArray[6] = (uint8_t)(z_acceleration >> 8); //MSB
-                    
-                    FlagPacketReady = 1; //Packet ready to be sent to Bridge Control Panel
-                    
-                }
+                OutArray[1] = (uint8_t)(Accelerometer_x & 0xFF); //LSB x-axis output
+                OutArray[2] = (uint8_t)(Accelerometer_x >> 8); //MSB x-axis output
+                OutArray[3] = (uint8_t)(Accelerometer_y & 0xFF); //LSB y-axis output
+                OutArray[4] = (uint8_t)(Accelerometer_y >> 8); //MSB y-axis output
+                OutArray[5] = (uint8_t)(Accelerometer_z & 0xFF); //LSB z-axis output
+                OutArray[6] = (uint8_t)(Accelerometer_z >> 8); //MSB z-axis output
+                
+                FlagPacketReady = 1; //Packet ready to be sent to Bridge Control Panel
             }
         }
-}
-int16 Scaler(int max, int min, int b, int a, int x){
-    //scaling the values from digit to mg.
-    return ((((x-min)*(b-a))/(max-min))+a);
+    }
 }
 /* [] END OF FILE */
